@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Scaffold
@@ -22,6 +23,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
+import androidx.compose.ui.unit.sp
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -41,30 +43,33 @@ class MainActivity : ComponentActivity() {
 fun MyApplicationApp() {
     var currentDestination by rememberSaveable { mutableStateOf(AppDestinations.HOME) }
 
-    NavigationSuiteScaffold(
-        navigationSuiteItems = {
-            AppDestinations.entries.forEach {
-                item(
-                    icon = {
-                        Icon(
-                            painter = painterResource(it.icon),
-                            contentDescription = it.label,
-                            tint = if (it == AppDestinations.HOME) Color.Unspecified else LocalContentColor.current
-                        )
-                    },
-                    label = { Text(it.label) },
-                    selected = it == currentDestination,
-                    onClick = { currentDestination = it }
-                )
+    // Wrap the entire app hierarchy in a SelectionContainer to make all text globally selectable
+    SelectionContainer {
+        NavigationSuiteScaffold(
+            navigationSuiteItems = {
+                AppDestinations.entries.forEach {
+                    item(
+                        icon = {
+                            Icon(
+                                painter = painterResource(it.icon),
+                                contentDescription = it.label,
+                                tint = if (it == AppDestinations.HOME) Color.Unspecified else LocalContentColor.current
+                            )
+                        },
+                        label = { Text(it.label) },
+                        selected = it == currentDestination,
+                        onClick = { currentDestination = it }
+                    )
+                }
             }
-        }
-    ) {
-        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-            // Dynamic page switching based on current state
-            when (currentDestination) {
-                AppDestinations.HOME -> HomeScreen(modifier = Modifier.padding(innerPadding))
-                AppDestinations.FAVORITES -> FavoritesScreen(modifier = Modifier.padding(innerPadding))
-                AppDestinations.PROFILE -> ProfileScreen(modifier = Modifier.padding(innerPadding))
+        ) {
+            Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                // Dynamic page switching based on current state
+                when (currentDestination) {
+                    AppDestinations.HOME -> HomeScreen(modifier = Modifier.padding(innerPadding))
+                    AppDestinations.FAVORITES -> FavoritesScreen(modifier = Modifier.padding(innerPadding))
+                    AppDestinations.PROFILE -> ProfileScreen(modifier = Modifier.padding(innerPadding))
+                }
             }
         }
     }
@@ -88,7 +93,10 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             "Kārlis Ivars Braķis\n" +
             "Andrejs Ņesterovičs\n" +
             "\tAnd the application was developed by\n" +
-            "Kārlis Ivars Braķis", modifier = modifier)
+            "Kārlis Ivars Braķis",
+        modifier = modifier,
+        fontSize = 40.sp,       // Lowered slightly to fit well
+        lineHeight = 40.sp)
 }
 
 @Composable
