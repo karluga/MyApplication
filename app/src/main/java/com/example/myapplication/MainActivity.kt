@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
@@ -16,6 +17,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,8 +47,9 @@ fun MyApplicationApp() {
                 item(
                     icon = {
                         Icon(
-                            painterResource(it.icon),
-                            contentDescription = it.label
+                            painter = painterResource(it.icon),
+                            contentDescription = it.label,
+                            tint = if (it == AppDestinations.HOME) Color.Unspecified else LocalContentColor.current
                         )
                     },
                     label = { Text(it.label) },
@@ -71,7 +74,7 @@ enum class AppDestinations(
     val label: String,
     val icon: Int,
 ) {
-    HOME("Home", R.drawable.ic_home),
+    HOME("Home", R.drawable.among_us_6008615_1920),
     FAVORITES("Favorites", R.drawable.ic_favorite),
     PROFILE("Profile", R.drawable.ic_account_box),
 }
@@ -81,7 +84,7 @@ enum class AppDestinations(
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
-    Text(text = "Welcome to the Home Page!", modifier = modifier)
+    Text(text = "Sus mungus", modifier = modifier)
 }
 
 @Composable
