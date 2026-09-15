@@ -84,7 +84,11 @@ enum class AppDestinations(
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
-    Text(text = "Sus mungus", modifier = modifier)
+    Text(text = "This is the first application from Group 2:\n" +
+            "Kārlis Ivars Braķis\n" +
+            "Andrejs Ņesterovičs\n" +
+            "\tAnd the application was developed by\n" +
+            "Kārlis Ivars Braķis", modifier = modifier)
 }
 
 @Composable
