@@ -57,10 +57,12 @@ fun MyApplicationApp() {
         }
     ) {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-            Greeting(
-                name = "Android",
-                modifier = Modifier.padding(innerPadding)
-            )
+            // Dynamic page switching based on current state
+            when (currentDestination) {
+                AppDestinations.HOME -> HomeScreen(modifier = Modifier.padding(innerPadding))
+                AppDestinations.FAVORITES -> FavoritesScreen(modifier = Modifier.padding(innerPadding))
+                AppDestinations.PROFILE -> ProfileScreen(modifier = Modifier.padding(innerPadding))
+            }
         }
     }
 }
@@ -74,18 +76,20 @@ enum class AppDestinations(
     PROFILE("Profile", R.drawable.ic_account_box),
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
 
 @Preview(showBackground = true)
+
 @Composable
-fun GreetingPreview() {
-    MyApplicationTheme {
-        Greeting("Android")
-    }
+fun HomeScreen(modifier: Modifier = Modifier) {
+    Text(text = "Welcome to the Home Page!", modifier = modifier)
+}
+
+@Composable
+fun FavoritesScreen(modifier: Modifier = Modifier) {
+    Text(text = "Your Favorite Items", modifier = modifier)
+}
+
+@Composable
+fun ProfileScreen(modifier: Modifier = Modifier) {
+    Text(text = "User Profile Settings", modifier = modifier)
 }

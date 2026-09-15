@@ -1,7 +1,18 @@
+# Gradle and Build Outputs
+.gradle/
+build/
+app/build/
+
+# Android Studio / IntelliJ IDE configurations
+.idea/
+*.iml
+*.iws
+local.properties
+
 # Compiled class file
 *.class
 
-# Log file
+# Log files
 *.log
 
 # BlueJ files
@@ -19,9 +30,17 @@
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# EXCEPTIONS: Do NOT ignore the Gradle Wrapper files required to build the project!
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.zip
+
+# Virtual machine crash logs
 hs_err_pid*
 replay_pid*
 
-# Kotlin Gradle plugin data, see https://kotlinlang.org/docs/whatsnew20.html#new-directory-for-kotlin-data-in-gradle-projects
+# Kotlin Gradle plugin data (incremental compilation caches)
 .kotlin/
+
+# OS specific files
+.DS_Store
+Thumbs.db
